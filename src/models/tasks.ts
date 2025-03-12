@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { task } from "types/taskTypes";
+import bcrypt from 'bcrypt'
 
 const taskSchema: Schema = new Schema<task>(
     {
@@ -25,6 +26,11 @@ const taskSchema: Schema = new Schema<task>(
             },
             default: 1 
         },
+        email:{
+            type:String,
+            required:true,
+            trim:true,
+        },
         password:{ 
             type: String,
             required:true,
@@ -35,9 +41,25 @@ const taskSchema: Schema = new Schema<task>(
         timestamps: true,
         versionKey: false
     }
-)
+);
+
+taskSchema.pre<task>('save', async function(next){
+    if (this.isModified("password") || this.isNew) {
+        const salt = await bcrypt.genSalt(12);
+        const hash = await bcrypt.hash(this.password, salt);
+        this.password = hash;
+    }
+    next();
+})
+
+taskSchema.method("comparePassword", async function(password: string): Promise<boolean>{
+    return await bcrypt.compare(password, this.password as string)
+})
 
 
-
-
+taskSchema.methods.toJSON = function (){
+    const userOBJ = this.toObject()
+    delete userOBJ.password
+    return userOBJ;
+}
 export const taskModel = mongoose.model<task>("task", taskSchema)

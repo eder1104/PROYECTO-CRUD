@@ -1,12 +1,14 @@
+import { Document } from "mongoose";
 import {Query, Repository } from "./RepositoryTypes";
 
-export interface task {
+export interface task extends Document {
     title: string;
     description: string;
     expirationDate: Date;
     state: number;
     password: string;
     email:string;
+    comparePassword(password: string): Promise<boolean>
 }
 
 export interface Taskrepository extends Repository<task>{
