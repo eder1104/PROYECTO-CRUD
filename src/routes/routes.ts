@@ -1,10 +1,14 @@
 import { Router, RequestHandler } from "express";
 import { findTasks, findTaskrById, createTask, UpdateTask, DeleteTask } from "@controllers/usersControllers";
 import { createRoles, DeleteRoles, findRoles, findRolesById, UpdateRoles } from "@controllers/RolesControllers";
+import { registerUser } from "@controllers/auth/authControllers";
 
 const router = Router();
 
 export default () => {
+  /* auth Routes */
+router.post("/auth/register", registerUser as RequestHandler)
+
   /* Rutas de tareas */
   router.get("/tasks", findTasks as RequestHandler);
   router.get("/tasks/:id", findTaskrById as RequestHandler);

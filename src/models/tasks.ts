@@ -24,6 +24,11 @@ const taskSchema: Schema = new Schema<task>(
                 message: "El estado debe ser 0 (inactivo) o 1 (activo)"
             },
             default: 1 
+        },
+        password:{ 
+            type: String,
+            required:true,
+            trim: true
         }
     },
     {

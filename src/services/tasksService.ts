@@ -19,6 +19,10 @@ export class tasksrvis implements TaskServices {
      return this.taskRepost.findById(id);
  }
 
+ findUsersByemail(email: string): Promise<task | null> {
+     return this.taskRepost.findOne({ email });
+ }
+
  async UpdateTask(id: string, task: Partial<task>): Promise<task | null> {
      return this.taskRepost.update(id, task);
  }

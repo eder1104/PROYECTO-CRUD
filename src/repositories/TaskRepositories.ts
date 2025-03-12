@@ -1,4 +1,5 @@
 import { taskModel } from "@models/tasks";
+import { Query } from "types/RepositoryTypes";
 import { task, Taskrepository } from "types/taskTypes";
 
 export class taskRepository implements Taskrepository{
@@ -11,6 +12,10 @@ export class taskRepository implements Taskrepository{
 
     async find(): Promise<task[]>{
         return await taskModel.find().exec()
+    }
+
+    async findOne(query: Query): Promise<task | null> {
+        return await taskModel.findOne(query);
     }
 
     async findById(id: string): Promise<task | null>{
