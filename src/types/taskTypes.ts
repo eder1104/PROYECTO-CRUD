@@ -18,7 +18,7 @@ export interface Taskrepository extends Repository<task>{
 
 export interface TaskServices{
     createTask(task: task): Promise<task>;
-    findtasks(): Promise<task[]>;
+    findtasks(query?: Query): Promise<task[]>;
     findTaskrById(id: string): Promise<task | null>;
     findUsersByemail(email:string): Promise<task | null>;
     UpdateTask(id: string, task: Partial<task>): Promise<task | null>;

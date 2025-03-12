@@ -2,6 +2,8 @@ import { Router, RequestHandler } from "express";
 import { findTasks, findTaskrById, createTask, UpdateTask, DeleteTask } from "@controllers/usersControllers";
 import { createRoles, DeleteRoles, findRoles, findRolesById, UpdateRoles } from "@controllers/RolesControllers";
 import { loginUser, registerUser } from "@controllers/auth/authControllers";
+import { verifyToken } from "middlewares/auth";
+import { createPosts, deletePosts, findPosts, findPostsById, updatePosts } from "@controllers/postsControllers";
 
 const router = Router();
 
@@ -24,6 +26,13 @@ export default () => {
   router.post("/roles", createRoles as RequestHandler);
   router.put("/roles/:id", UpdateRoles as RequestHandler);
   router.delete("/roles/:id", DeleteRoles as RequestHandler);
+
+  /* rutas de posts */
+  router.get("/posts",findPosts as RequestHandler);
+  router.get("/posts/:id", findPostsById as RequestHandler);
+  router.post("/posts",verifyToken, createPosts as RequestHandler);
+  router.put("/posts/:id",verifyToken, updatePosts as RequestHandler);
+  router.delete("/posts/:id",verifyToken, deletePosts as RequestHandler);
 
   return router;
 };

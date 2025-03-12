@@ -25,6 +25,7 @@ export const registerUser = async (req:Request, res: Response) =>{
 
 
 export const loginUser = async (req: Request, res: Response) =>{
+    const jwtsecret = process.env.JWT_SECRET as string
     try{
         const {email, password}:task =req.body
 
@@ -34,7 +35,7 @@ export const loginUser = async (req: Request, res: Response) =>{
         const comparePass = await user.comparePassword(password);
         if(!comparePass) return res.status(400).json({message:"invalid use2r or password"});
 
-        const token = jwt.sign({id: user._id, email: user.email, username: user.username}, "ClaveSecreta", {expiresIn: "1h"})
+        const token = jwt.sign({id: user._id, email: user.email, username: user.username}, jwtsecret, {expiresIn: "1h"})
 
         res.json(token);
     }

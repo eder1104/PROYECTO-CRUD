@@ -10,8 +10,8 @@ export class taskRepository implements Taskrepository{
         return await newtask.save()
     }
 
-    async find(): Promise<task[]>{
-        return await taskModel.find().exec()
+    async find(query?: Query): Promise<task[]>{
+        return await taskModel.find(query || {}).exec()
     }
 
     async findOne(query: Query): Promise<task | null> {

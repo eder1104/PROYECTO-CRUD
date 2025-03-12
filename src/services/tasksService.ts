@@ -1,3 +1,4 @@
+import { Query } from "types/RepositoryTypes";
 import { TaskServices, Taskrepository, task } from "types/taskTypes"
 
 export class tasksrvis implements TaskServices {
@@ -11,8 +12,8 @@ export class tasksrvis implements TaskServices {
      return this.taskRepost.create(task);
  }
 
- async findtasks(): Promise<task[]> {
-     return this.taskRepost.find();
+ async findtasks(query?: Query): Promise<task[]> {
+     return this.taskRepost.find(query);
  }
 
  async findTaskrById(id: string): Promise<task | null> {
