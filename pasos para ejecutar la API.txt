@@ -1,0 +1,44 @@
+Requisitos previos
+Node.js: Asegúrate de tener instalada una versión compatible (por ejemplo, 14.x o superior).
+Git: Para clonar el repositorio.
+Pasos para la ejecución
+Clonar el repositorio
+Abre una terminal y ejecuta el siguiente comando para clonar el proyecto desde GitHub:
+
+bash
+Copiar
+Editar
+git clone https://github.com/eder1104/PROYECTO-CRUD.git
+Acceder al directorio del proyecto
+Ingresa al directorio clonado:
+
+bash
+Copiar
+Editar
+cd PROYECTO-CRUD
+Instalar dependencias
+Una vez en el directorio, instala todas las dependencias necesarias con:
+
+bash
+Copiar
+Editar
+npm install
+Ejecutar el proyecto
+Levanta el servidor local usando el comando que inicia el modo de desarrollo:
+
+bash
+Copiar
+Editar
+npm run dev
+El servidor debería iniciarse, generalmente en el puerto 3000 (o el que esté configurado).
+
+Verificar el funcionamiento
+
+Abre tu navegador y accede a:
+http://localhost:3000/api/v1
+para comprobar que el servidor responde correctamente.
+Si se integró Swagger, probablemente podrás acceder a la documentación de la API en una ruta similar a:
+http://localhost:3000/api-docs
+Probar la API
+Utiliza herramientas como Postman para enviar peticiones a los endpoints (GET, POST, PUT, DELETE) y confirmar que el comportamiento es el esperado.
+

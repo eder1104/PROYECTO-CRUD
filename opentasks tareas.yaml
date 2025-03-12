@@ -1,0 +1,188 @@
+openapi: 3.0.1
+info:
+  title: API CRUD para organización de tareas
+  description: API básica para el manejo de tareas con funcionalidades CRUD.  
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Servidor local
+tags:
+  - name: tasks
+    description: Endpoints para la gestión de tareas
+
+paths:
+  /tasks:
+    get:
+      tags:
+        - tasks
+      summary: Lista todas las tareas
+      description: Obtiene una lista de todas las tareas registradas en el sistema.
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: Token de autenticación en formato Bearer.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de tareas obtenida exitosamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+        '401':
+          description: No autorizado. Token inválido o ausente.
+        '500':
+          description: Error interno del servidor.
+
+    post:
+      tags:
+        - tasks
+      summary: Crea una nueva tarea
+      description: Crea una nueva tarea en el sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '201':
+          description: Tarea creada exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Solicitud inválida.
+        '500':
+          description: Error interno del servidor.
+
+  /tasks/{id}:
+    get:
+      tags:
+        - tasks
+      summary: Obtiene una tarea por ID
+      description: Obtiene la información de una tarea específica a partir de su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la tarea a consultar.
+          schema:
+            type: integer
+        - name: Authorization
+          in: header
+          required: true
+          description: Token de autenticación en formato Bearer.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tarea encontrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '404':
+          description: Tarea no encontrada.
+        '401':
+          description: No autorizado.
+        '500':
+          description: Error interno del servidor.
+
+    put:
+      tags:
+        - tasks
+      summary: Actualiza una tarea por ID
+      description: Actualiza la información de una tarea específica a partir de su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la tarea a actualizar.
+          schema:
+            type: integer
+        - name: Authorization
+          in: header
+          required: true
+          description: Token de autenticación en formato Bearer.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '200':
+          description: Tarea actualizada exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '400':
+          description: Solicitud inválida.
+        '404':
+          description: Tarea no encontrada.
+        '401':
+          description: No autorizado.
+        '500':
+          description: Error interno del servidor.
+
+    delete:
+      tags:
+        - tasks
+      summary: Elimina una tarea por ID
+      description: Elimina una tarea específica a partir de su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la tarea a eliminar.
+          schema:
+            type: integer
+        - name: Authorization
+          in: header
+          required: true
+          description: Token de autenticación en formato Bearer.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tarea eliminada exitosamente.
+        '404':
+          description: Tarea no encontrada.
+        '401':
+          description: No autorizado.
+        '500':
+          description: Error interno del servidor.
+
+components:
+  schemas:
+    Task:
+      type: object
+      required:
+        - title
+        - description
+        - status
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Comprar víveres"
+        description:
+          type: string
+          example: "Comprar frutas, vegetales y lácteos"
+        status:
+          type: string
+          enum:
+            - inactiva
+            - completada
+          example: "pendiente"

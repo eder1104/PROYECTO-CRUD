@@ -1,0 +1,141 @@
+openapi: 3.0.1
+info:
+  title: API Roles
+  version: "1.0.0"
+  description: API para la gestión de roles en el sistema.
+servers:
+  - url: http://localhost:3000/api/v1/roles
+    description: Servidor local
+tags:
+  - name: roles
+    description: Endpoints para la gestión de roles
+paths:
+  /roles:
+    get:
+      tags:
+        - roles
+      summary: Lista todos los roles
+      description: Obtiene una lista de todos los roles registrados.
+      responses:
+        '200':
+          description: Lista de roles obtenida exitosamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Role'
+        '500':
+          description: Error interno del servidor.
+    post:
+      tags:
+        - roles
+      summary: Crea un nuevo rol
+      description: Crea un nuevo rol en el sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Role'
+      responses:
+        '201':
+          description: Rol creado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '400':
+          description: Solicitud inválida.
+        '500':
+          description: Error interno del servidor.
+  /roles/{id}:
+    get:
+      tags:
+        - roles
+      summary: Obtiene un rol por ID
+      description: Obtiene la información de un rol específico mediante su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del rol a consultar.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Rol encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '404':
+          description: Rol no encontrado.
+        '500':
+          description: Error interno del servidor.
+    put:
+      tags:
+        - roles
+      summary: Actualiza un rol por ID
+      description: Actualiza la información de un rol existente mediante su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del rol a actualizar.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Role'
+      responses:
+        '200':
+          description: Rol actualizado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '400':
+          description: Solicitud inválida.
+        '404':
+          description: Rol no encontrado.
+        '500':
+          description: Error interno del servidor.
+    delete:
+      tags:
+        - roles
+      summary: Elimina un rol por ID
+      description: Elimina un rol del sistema mediante su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del rol a eliminar.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Rol eliminado exitosamente.
+        '404':
+          description: Rol no encontrado.
+        '500':
+          description: Error interno del servidor.
+components:
+  schemas:
+    Role:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Administrador"
+        description:
+          type: string
+          example: "Rol con permisos completos en el sistema"

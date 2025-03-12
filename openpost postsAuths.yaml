@@ -1,0 +1,145 @@
+openapi: 3.0.1
+info:
+  title: API Posts
+  version: "1.0.0"
+  description: API para la gestión de posts en el sistema.
+servers:
+  - url: http://localhost:3000/api/v1/auths
+    description: Servidor local
+tags:
+  - name: posts
+    description: Endpoints para la gestión de posts
+paths:
+  /posts:
+    get:
+      tags:
+        - posts
+      summary: Lista todos los posts
+      description: Obtiene una lista de todos los posts registrados.
+      responses:
+        '200':
+          description: Lista de posts obtenida exitosamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+        '500':
+          description: Error interno del servidor.
+    post:
+      tags:
+        - posts
+      summary: Crea un nuevo post
+      description: Crea un nuevo post en el sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+      responses:
+        '201':
+          description: Post creado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          description: Solicitud inválida.
+        '500':
+          description: Error interno del servidor.
+  /posts/{id}:
+    get:
+      tags:
+        - posts
+      summary: Obtiene un post por ID
+      description: Obtiene la información de un post específico mediante su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del post a consultar.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Post encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '404':
+          description: Post no encontrado.
+        '500':
+          description: Error interno del servidor.
+    put:
+      tags:
+        - posts
+      summary: Actualiza un post por ID
+      description: Actualiza la información de un post existente mediante su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del post a actualizar.
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+      responses:
+        '200':
+          description: Post actualizado exitosamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          description: Solicitud inválida.
+        '404':
+          description: Post no encontrado.
+        '500':
+          description: Error interno del servidor.
+    delete:
+      tags:
+        - posts
+      summary: Elimina un post por ID
+      description: Elimina un post del sistema mediante su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del post a eliminar.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Post eliminado exitosamente.
+        '404':
+          description: Post no encontrado.
+        '500':
+          description: Error interno del servidor.
+components:
+  schemas:
+    Post:
+      type: object
+      required:
+        - title
+        - content
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Título del post"
+        content:
+          type: string
+          example: "Contenido detallado del post..."
+        author:
+          type: string
+          example: "Nombre del autor"
