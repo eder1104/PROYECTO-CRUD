@@ -5,7 +5,7 @@ const RolesSchema: Schema = new Schema<roles>(
     {
         name: {
             type: String,
-            required: [true, "El título es obligatorio"]
+            required: [true, "El nombre es obligatorio"]
         }
     },
     {

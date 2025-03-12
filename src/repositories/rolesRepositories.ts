@@ -1,11 +1,12 @@
 import {rolesrepository, roles} from "types/RolesTypes";
 import { RolesModel } from "@models/Roles";
+
+
 export class Rolesrepository implements rolesrepository{
-
-
     async create(data: roles): Promise<roles> {
-       const newtask = new RolesModel(data)
-        return await newtask.save()
+       const newRole = new RolesModel(data)
+        return await newRole.save()
+        
     }
 
     async find(): Promise<roles[]>{
