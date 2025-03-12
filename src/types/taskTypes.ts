@@ -8,6 +8,7 @@ export interface task extends Document {
     state: number;
     password: string;
     email:string;
+    username:string;
     comparePassword(password: string): Promise<boolean>
 }
 

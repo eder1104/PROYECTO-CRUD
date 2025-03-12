@@ -8,6 +8,11 @@ const taskSchema: Schema = new Schema<task>(
             type: String,
             required: [true, "El título es obligatorio"]
         },
+        username:{
+            type:String,
+            required: [true, "necesitamos tu nombre"],
+            minlength: [10,"tu usuario es demasiado corto!"]
+        },
         description: {
             type: String,
             required: [true, "La descripción es obligatoria"],
