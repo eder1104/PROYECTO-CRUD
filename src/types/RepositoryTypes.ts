@@ -7,3 +7,5 @@ export interface Repository <T = unknown>{
     update(id: string, data: Partial<T>): Promise<T | null>;
     delete(id: string): Promise<boolean>
 }
+
+/* interface global */

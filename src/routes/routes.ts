@@ -14,18 +14,18 @@ export default () => {
 
 
   /* Rutas de tareas */
-  router.get("/tasks", findTasks as RequestHandler);
-  router.get("/tasks/:id", findTaskrById as RequestHandler);
-  router.post("/tasks", createTask as RequestHandler);
-  router.put("/tasks/:id", UpdateTask as RequestHandler);
-  router.delete("/tasks/:id", DeleteTask as RequestHandler);
+  router.get("/tasks",verifyToken, findTasks as RequestHandler);
+  router.get("/tasks/:id",verifyToken, findTaskrById as RequestHandler);
+  router.post("/tasks",verifyToken, createTask as RequestHandler);
+  router.put("/tasks/:id",verifyToken, UpdateTask as RequestHandler);
+  router.delete("/tasks/:id",verifyToken, DeleteTask as RequestHandler);
 
   /* Rutas de roles */
-  router.get("/roles", findRoles as RequestHandler);
-  router.get("/roles/:id", findRolesById as RequestHandler);
-  router.post("/roles", createRoles as RequestHandler);
-  router.put("/roles/:id", UpdateRoles as RequestHandler);
-  router.delete("/roles/:id", DeleteRoles as RequestHandler);
+  router.get("/roles",verifyToken, findRoles as RequestHandler);
+  router.get("/roles/:id",verifyToken, findRolesById as RequestHandler);
+  router.post("/roles",verifyToken, createRoles as RequestHandler);
+  router.put("/roles/:id",verifyToken, UpdateRoles as RequestHandler);
+  router.delete("/roles/:id",verifyToken, DeleteRoles as RequestHandler);
 
   /* rutas de posts */
   router.get("/posts",findPosts as RequestHandler);

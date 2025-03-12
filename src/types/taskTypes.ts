@@ -1,26 +1,26 @@
 import { Document } from "mongoose";
-import {Query, Repository } from "./RepositoryTypes";
+import { Query, Repository } from "./RepositoryTypes";
 
 export interface task extends Document {
-    title: string;
-    description: string;
-    expirationDate: Date;
-    state: number;
+    title?: string;
+    description?: string;
+    expirationDate?: Date;
+    state?: number;
     password: string;
-    email:string;
-    username:string;
-    comparePassword(password: string): Promise<boolean>
+    email: string;
+    username?: string;
+    comparePassword(password: string): Promise<boolean>;
 }
 
-export interface Taskrepository extends Repository<task>{
-    findOne(query: Query): Promise<task | null>
+export interface Taskrepository extends Repository<task> {
+    findOne(query: Query): Promise<task | null>;
 }
 
-export interface TaskServices{
-    createTask(task: task): Promise<task>;
+export interface TaskServices {
+    createTask(task: Partial<task>): Promise<task>;
     findtasks(query?: Query): Promise<task[]>;
     findTaskrById(id: string): Promise<task | null>;
-    findUsersByemail(email:string): Promise<task | null>;
+    findUsersByemail(email: string): Promise<task | null>;
     UpdateTask(id: string, task: Partial<task>): Promise<task | null>;
     DeleteTask(id: string): Promise<boolean>;
 }

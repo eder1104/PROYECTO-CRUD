@@ -3,7 +3,7 @@ import { Query, Repository } from "./RepositoryTypes";
 export interface roles {
     name: string;
 }
-
+/* interface local */
 export interface rolesrepository extends Repository<roles>{}
 
 export interface roleServices{
