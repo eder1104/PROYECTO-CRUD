@@ -1,7 +1,7 @@
 import { Repository } from "./RepositoryTypes";
 
 export interface roles {
-    title: string;
+    name: string;
 }
 
 export interface rolesrepository extends Repository<roles>{}

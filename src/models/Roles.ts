@@ -3,7 +3,7 @@ import { roles } from "types/RolesTypes";
 
 const RolesSchema: Schema = new Schema<roles>(
     {
-        title: {
+        name: {
             type: String,
             required: [true, "El título es obligatorio"]
         }
