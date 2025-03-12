@@ -11,7 +11,7 @@ export const findPosts = async (req: Request, res: Response) => {
    
   try {
     const Posts = await postsService.findPosts();
-    if (Posts.length === 0) return res.status(404).json({ message: "no Posts Found." });
+    if (Posts.length === 0) return res.status(404).json({ message: "no hay usuarios." });
 
     res.json(Posts);
   } catch (error) {
